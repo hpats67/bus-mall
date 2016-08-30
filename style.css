@@ -1,9 +1,15 @@
+body {
+  margin: 0 auto;
+  text-align: center;
+}
+
 ul {
 }
 
 li{
     list-style-type: none;
     display: inline;
+    padding: 30px;
 }
 
 li img {
