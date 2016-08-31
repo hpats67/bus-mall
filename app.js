@@ -5,9 +5,15 @@ var images = [];
 var randomIndicies = [];
 
 for (var i = 0; i < imagePaths.length; i++){
-  var name = imagePaths[i];
+  var name = imagePaths[i]; //eslint-disable-line
   new Image(null, name);
 }
+
+var imageList = document.getElementById('images');
+
+imageList.addEventListener('click', clickHandler);
+
+drawImage();
 
 function drawImage () {
   function random() {
@@ -30,7 +36,6 @@ function drawImage () {
 
   randomIndicies = random();
 
-
   for (var t = 0; t < 3; t++){
     var randomPath = imagePaths[randomIndicies[t]];
     var img = document.createElement('img');
@@ -39,41 +44,42 @@ function drawImage () {
     li.appendChild(img);
     imageList.appendChild(li);
   }
-  console.log(randomIndicies);
 }
 
-var imageList = document.getElementById('images');
-
-imageList.addEventListener('click', clickHandler);
-
-drawImage();
-
+var count = 0;
 function clickHandler(e) {
-  console.log(e.target);
-  var matchPath = event.target.getAttribute('src');
-  console.log(matchPath);
-  for(var i = 0; i < randomIndicies.length; i++){
-    var currentIndex = randomIndicies[i];
-    var displayedObject = images[currentIndex];
-    displayedObject.views += 1;
-  }
-  for (var t = 0; t < images.length; t++){
-    var currentImageObject = images[t];
-    if (currentImageObject.path === matchPath){
-      currentImageObject.clicks += 1;
+  if (count < 20){
+    console.log(e.target);
+    var matchPath = e.target.getAttribute('src');
+    console.log(matchPath);
+    for(var i = 0; i < randomIndicies.length; i++){
+      var currentIndex = randomIndicies[i];
+      var displayedObject = images[currentIndex];
+      displayedObject.views += 1;
     }
-  }
-  imageList.textContent = '';
+    for (var t = 0; t < images.length; t++){
+      var currentImageObject = images[t];
+      if (currentImageObject.path === matchPath){
+        console.log('found it! ', currentImageObject);
+        currentImageObject.clicks += 1;
+      };
+    }
+    imageList.textContent = '';
+    drawImage();
+    console.log(images);
 
-  drawImage();
-  console.log(Image);
+    count++;
+    console.log('click counter: ' + count);
+  };
+
+
 }
 
-function Image(name, path){
+function Image(name, path){ //eslint-disable-line
   this.views = 0;
   this.clicks = 0;
   this.name = name;
-  this.path = path;
+  this.path = 'img/' + path;
 
   images.push(this);
 };
