@@ -50,8 +50,23 @@ drawImage();
 
 function clickHandler(e) {
   console.log(e.target);
+  var matchPath = event.target.getAttribute('src');
+  console.log(matchPath);
+  for(var i = 0; i < randomIndicies.length; i++){
+    var currentIndex = randomIndicies[i];
+    var displayedObject = images[currentIndex];
+    displayedObject.views += 1;
+  }
+  for (var t = 0; t < images.length; t++){
+    var currentImageObject = images[t];
+    if (currentImageObject.path === matchPath){
+      currentImageObject.clicks += 1;
+    }
+  }
   imageList.textContent = '';
+
   drawImage();
+  console.log(Image);
 }
 
 function Image(name, path){
